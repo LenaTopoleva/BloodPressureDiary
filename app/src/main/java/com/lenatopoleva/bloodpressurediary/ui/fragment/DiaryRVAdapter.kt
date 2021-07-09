@@ -1,5 +1,6 @@
 package com.lenatopoleva.bloodpressurediary.ui.fragment
 
+import android.opengl.Visibility
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,7 +24,7 @@ class DiaryRVAdapter (val onClickListener: ((HealthData) -> Unit)? = null): Recy
     }
 
     override fun onBindViewHolder(holder: HealthDataViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position], position)
     }
 
     override fun getItemCount(): Int {
@@ -31,8 +32,12 @@ class DiaryRVAdapter (val onClickListener: ((HealthData) -> Unit)? = null): Recy
     }
 
     inner class HealthDataViewHolder(val container: View) : RecyclerView.ViewHolder(container) {
-        fun bind(healthData: HealthData)  {
+        fun bind(healthData: HealthData, position: Int)  {
             with(healthData) {
+                if ( position > 0 && healthData.date != data[position-1].date ) {
+                    container.group_date.visibility = View.VISIBLE
+                }
+                if (position == 0) container.group_date.visibility = View.VISIBLE
                 container.tv_date.text = date
                 container.tv_time.text = time
                 container.tv_up_pressure.text = upperBloodPressure.toString()

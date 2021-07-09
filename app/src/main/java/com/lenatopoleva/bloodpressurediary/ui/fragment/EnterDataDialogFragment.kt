@@ -1,5 +1,7 @@
 package com.lenatopoleva.bloodpressurediary.ui.fragment
 
+import android.annotation.SuppressLint
+import android.icu.text.DateFormat.AM_PM_FIELD
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +14,8 @@ import com.lenatopoleva.bloodpressurediary.utils.livedataevent.Event
 import kotlinx.android.synthetic.main.dialog_fragment_enter_data.*
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import org.koin.android.viewmodel.ext.android.getViewModel
+import java.text.DateFormat.AM_PM_FIELD
+import java.text.SimpleDateFormat
 import java.util.*
 
 class EnterDataDialogFragment : DialogFragment() {
@@ -61,9 +65,9 @@ class EnterDataDialogFragment : DialogFragment() {
                 ))
             } ?: model.dialogFragmentBtnYesClicked(
                 HealthData(
-                    UUID.randomUUID().toString(),
-                    Calendar.getInstance().get(Calendar.DAY_OF_YEAR).toString(),
-                    Calendar.getInstance().get(Calendar.AM_PM).toString(),
+                    Calendar.getInstance().timeInMillis,
+                    getCurrentDate(),
+                    getCurrentTime(),
                     upper_blood_pressure_edit_text.text.toString(),
                     lower_blood_pressure_edit_text.text.toString(),
                     pulse_edit_text.text.toString()
@@ -80,6 +84,21 @@ class EnterDataDialogFragment : DialogFragment() {
             lower_blood_pressure_edit_text.setText(data.lowerBloodPressure)
             pulse_edit_text.setText(data.pulse)
         }
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getCurrentDate(): String {
+        val date = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("dd.MM, yyyy")
+//        val formatter = SimpleDateFormat.getDateTimeInstance() //or use getDateInstance()
+        return formatter.format(date)
+    }
+
+    @SuppressLint("SimpleDateFormat")
+    private fun getCurrentTime(): String {
+        val date = Calendar.getInstance().time
+        val formatter = SimpleDateFormat("HH:mm")
+        return formatter.format(date)
     }
 
     private fun closeDialog() {

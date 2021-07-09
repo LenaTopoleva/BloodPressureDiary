@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class HealthData(
-    val id: String = "",
+    val id: Long = 0,
     val date: String = "",
     val time: String = "",
     val upperBloodPressure: String = "",

@@ -93,7 +93,6 @@ class SplashActivity: AppCompatActivity(), CoroutineScope {
             AuthUI.IdpConfig.GoogleBuilder().build()
         )
         val intent = AuthUI.getInstance().createSignInIntentBuilder()
-//            .setLogo(R.drawable.heart)
             .setTheme(R.style.LoginTheme)
             .setAvailableProviders(providers)
             .build()
