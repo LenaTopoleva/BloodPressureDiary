@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "268216987935",
+    "project_id": "bloodpressurediary-e4069",
+    "storage_bucket": "bloodpressurediary-e4069.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:268216987935:android:f4161346fa3d9e977c802a",
+        "android_client_info": {
+          "package_name": "com.lenatopoleva.bloodpressurediary"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "268216987935-eq5qu0v2s1uag5f94hevk5b4brr8jkul.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAAN1sd0LdJ0tj-mw9zj3bgDE0pNd3PgWI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "268216987935-eq5qu0v2s1uag5f94hevk5b4brr8jkul.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
