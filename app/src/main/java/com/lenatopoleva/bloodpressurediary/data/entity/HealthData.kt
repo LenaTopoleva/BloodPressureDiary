@@ -27,3 +27,4 @@ data class HealthData(
         return id.hashCode()
     }
 }
+

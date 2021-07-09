@@ -22,5 +22,5 @@
         android:clickable="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/heart" />
+        app:srcCompat="@drawable/outline_favorite_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,4 +10,5 @@
     <string name="upper_blood_pressure">Upper blood pressure</string>
     <string name="lower_blood_pressure">Lower blood pressure</string>
     <string name="pulse">Pulse</string>
+    <string name="slash">/</string>
 </resources>
