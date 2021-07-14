@@ -84,6 +84,7 @@ class SplashActivity: AppCompatActivity(), CoroutineScope {
 
     private fun startMainActivity() {
         MainActivity.start(this)
+        overridePendingTransition(R.anim.fade_in,R.anim.fade_out)
         finish()
     }
 
