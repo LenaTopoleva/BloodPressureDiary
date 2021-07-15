@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.firebase.ui.auth.AuthUI
 import com.lenatopoleva.bloodpressurediary.R
 import com.lenatopoleva.bloodpressurediary.data.entity.HealthData
+import com.lenatopoleva.bloodpressurediary.databinding.FragmentDiaryBinding
 import com.lenatopoleva.bloodpressurediary.ui.activity.splash.SplashActivity
-import kotlinx.android.synthetic.main.fragment_diary.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.consumeEach
 import org.koin.android.ext.android.getKoin
@@ -36,6 +36,7 @@ class DiaryFragment: Fragment(), CoroutineScope {
     lateinit var dataJob: Job
     private lateinit var errorJob: Job
 
+    lateinit var binding: FragmentDiaryBinding
     lateinit var adapter: DiaryRVAdapter
 
 
@@ -44,7 +45,8 @@ class DiaryFragment: Fragment(), CoroutineScope {
         parent: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val v = inflater.inflate(R.layout.fragment_diary, parent, false)
+        binding = FragmentDiaryBinding.inflate(inflater, parent, false)
+        val v = binding.root
         setHasOptionsMenu(true)
         return v
     }
@@ -52,13 +54,13 @@ class DiaryFragment: Fragment(), CoroutineScope {
     @ObsoleteCoroutinesApi
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rv_health_data.layoutManager = LinearLayoutManager(requireContext())
+        binding.rvHealthData.layoutManager = LinearLayoutManager(requireContext())
         adapter = DiaryRVAdapter { healthData ->
             diaryViewModel.listItemClicked(healthData)
         }
-        rv_health_data.adapter = adapter
+        binding.rvHealthData.adapter = adapter
 
-        fab.setOnClickListener {
+        binding.fab.setOnClickListener {
             diaryViewModel.fabClicked()
         }
         diaryViewModel.openDialogFragmentLiveData.observe(viewLifecycleOwner, { event ->

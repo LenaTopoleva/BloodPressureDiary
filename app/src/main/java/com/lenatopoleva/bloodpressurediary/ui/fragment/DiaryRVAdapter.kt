@@ -7,10 +7,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.lenatopoleva.bloodpressurediary.R
 import com.lenatopoleva.bloodpressurediary.data.entity.HealthData
+import com.lenatopoleva.bloodpressurediary.databinding.ItemHealthDataBinding
 import com.lenatopoleva.bloodpressurediary.utils.ui.getColorInt
-import kotlinx.android.synthetic.main.item_health_data.view.*
 import com.lenatopoleva.bloodpressurediary.data.entity.Color as Colors
 
 
@@ -24,8 +23,8 @@ class DiaryRVAdapter(val onClickListener: ((HealthData) -> Unit)? = null): Recyc
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HealthDataViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val view = inflater.inflate(R.layout.item_health_data, parent, false)
-        return HealthDataViewHolder(view)
+        val itemBinding = ItemHealthDataBinding.inflate(inflater, parent, false)
+        return HealthDataViewHolder(itemBinding)
     }
 
     override fun onBindViewHolder(holder: HealthDataViewHolder, position: Int) {
@@ -36,29 +35,27 @@ class DiaryRVAdapter(val onClickListener: ((HealthData) -> Unit)? = null): Recyc
         return data.size
     }
 
-    inner class HealthDataViewHolder(val container: View) : RecyclerView.ViewHolder(container) {
+    inner class HealthDataViewHolder(val binding: ItemHealthDataBinding) : RecyclerView.ViewHolder(binding.root) {
+
         fun bind(healthData: HealthData, position: Int)  {
             with(healthData) {
                 if ( position > 0 && healthData.date != data[position - 1].date ) {
-                    container.group_date.visibility = View.VISIBLE
+                    binding.groupDate.visibility = View.VISIBLE
                 }
-                if (position == 0) container.group_date.visibility = View.VISIBLE
-                container.group_data.let {
+                if (position == 0) binding.groupDate.visibility = View.VISIBLE
+                binding.groupData.let {
                     val gradient = GradientDrawable(
                         GradientDrawable.Orientation.LEFT_RIGHT, intArrayOf(
                             Color.WHITE,
-                            getDataColor(upperBloodPressure, container.context),
+                            getDataColor(upperBloodPressure, binding.root.context),
                             Color.WHITE)
                     )
-//                    gradient.cornerRadius = 0f
 
                     it.background = gradient
                 }
-                container.tv_date.text = date
-                container.tv_time.text = time
-                container.tv_up_pressure.text = upperBloodPressure.toString()
-                container.tv_low_pressure.text = lowerBloodPressure.toString()
-                container.tv_pulse.text = pulse.toString()
+
+                binding.data = healthData
+                binding.executePendingBindings()
 
                 itemView.setOnClickListener {
                     onClickListener?.invoke(healthData)
